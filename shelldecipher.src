@@ -2,12 +2,62 @@ crypto = include_lib("/lib/crypto.so")
 if not crypto then crypto = include_lib(current_path + "/crypto.so")
 if not crypto then exit("Missing crypto library")
 
+shell = get_shell
+computer = shell.host_computer
+
 frame = function()
     print("-"*30)
 end function
 
+open_passFile = function() 
+    passwords_file = computer.File("/home/" + active_user + "/.saved_decryptions")
+
+    if not passwords_file then 
+        computer.touch("/home/" + active_user + "/", ".saved_decryptions")
+        print("Created /home/" + active_user + "/.saved_decryptions file")
+        passwords_file = computer.File("/home/" + active_user + "/.saved_decryptions")
+        passwords_file.set_content("EncPass:DecPass")
+    end if
+
+    return passwords_file
+end function
+
+read_passFile = function(passFile)
+	readed_passwords = passFile.get_content.split(",")
+
+    passwordsMap = {}
+    for password in readed_passwords
+        password = password.split(":")
+
+        passwordsMap[password[0]] = password[1]
+    end for
+
+    keys = passwordsMap.indexes
+    keys.remove("EncPass")
+    print("Loaded " + keys.len + " saved passwords from .saved_decryptions file\n")
+
+    return passwordsMap
+end function
+
+write_passFile = function(passwordsMap)
+    keys = passwordsMap.indexes
+    values = passwordsMap.values
+
+    to_write = []
+    for i in range(0, keys.len - 1)
+        to_write.push(keys[i] + ":" + values[i])
+    end for
+
+    passFile.set_content(to_write.join(","))
+end function
+
+
+
+passFile = open_passFile()
+saved_passwords = read_passFile(passFile)
+saved_encs = saved_passwords.indexes
+
 to_decrypt = []
-saved_passwords = []
 outputs = []
 
 while true
@@ -19,22 +69,30 @@ end while
 for pass in to_decrypt
     output = ""
     
-    if pass.len > 2 then 
-        print(pass + " - invalid input\n\n")
+    if pass.len > 2 or pass.len < 1 then 
+        print(pass + " - invalid input")
     end if
 
-    if pass.len > 1 then 
-		output = output + "Login: " + pass[0] + "\n"
+    if pass.len == 1 then 
+        pass = ["", pass[0]]
     end if
+
+    login = pass[0]
+    enc_password = pass[1]
+
+    if login != "" then output = output + "Login: " + pass[0] + "\n"
 
     password = ""
-    if saved_passwords.indexOf(pass[pass.len - 1]) >= 0 then 
-        password = saved_passwords[saved_passwords.indexOf(pass[pass.len - 1]) + 1]
+    saved_encs.indexOf(enc_password)
+    print("Password " + (to_decrypt.indexOf(pass)+1) + "/" + to_decrypt.len + ":")
+    if saved_encs.indexOf(enc_password) != null then 
+        password = saved_passwords[enc_password]
+        print("The decryption of the password '" + enc_password + "' was taken from a file .saved_decryption")
     else
-        print("Password " + (to_decrypt.indexOf(pass)+1) + "/" + to_decrypt.len + ":")
-        password = crypto.decipher(pass[pass.len - 1])
-        saved_passwords.push(pass[pass.len - 1])
-        saved_passwords.push(password)
+        password = crypto.decipher(enc_password)
+        saved_passwords[enc_password] = password
+        print(saved_passwords)
+        print("Decryption of the password '" + enc_password + "' , will be written to .saved_decryptions after the program is executed")
     end if
 
     output = output + "Password: " + password
@@ -50,3 +108,5 @@ for output in outputs
     frame()
 end for
 print()
+
+write_passFile(saved_passwords)
