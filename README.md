@@ -1,3 +1,3 @@
-# greyHack-scripts
+# Описание
 
 Мои скрипты для Grey Hack
