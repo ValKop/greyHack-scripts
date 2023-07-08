@@ -16,7 +16,7 @@ Compile this script in /bin/, then use the terminal to go to the directory where
 
 ## shelldecipher
 
-A script for decrypting passwords from the terminal. Saves all obtained matches **encrypted_password:decrypted password** into */home/<username>/.saved_decryptions* file. 
+A script for decrypting passwords from the terminal. Saves all obtained matches **encrypted_password:decrypted password** into */home/[username]/.saved_decryptions* file. 
 
 Just type `shelldecipher` into the terminal and press *Enter*. Then enter ONE password using the format **<login>:<encrypted password>** or just **<encrypted password>**, then press *Enter*. Then you can enter another password using the same algorithm, press *Enter* and so on until you have entered all passwords. When you run out of passwords to decrypt, just type **0** (the number zero, not the letter O)
 
