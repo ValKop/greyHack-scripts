@@ -1,0 +1,52 @@
+crypto = include_lib("/lib/crypto.so")
+if not crypto then crypto = include_lib(current_path + "/crypto.so")
+if not crypto then exit("Missing crypto library")
+
+frame = function()
+    print("-"*30)
+end function
+
+to_decrypt = []
+saved_passwords = []
+outputs = []
+
+while true
+    inp = user_input("Enter your username:encrypted password or just an encrypted password. Enter 0 to stop the input loop: ")
+    if inp == "0" then break
+    if inp.remove(" ") != "" then to_decrypt.push(inp.split(":"))
+end while
+	
+for pass in to_decrypt
+    output = ""
+    
+    if pass.len > 2 then 
+        print(pass + " - invalid input\n\n")
+    end if
+
+    if pass.len > 1 then 
+		output = output + "Login: " + pass[0] + "\n"
+    end if
+
+    password = ""
+    if saved_passwords.indexOf(pass[pass.len - 1]) >= 0 then 
+        password = saved_passwords[saved_passwords.indexOf(pass[pass.len - 1]) + 1]
+    else
+        print("Password " + (to_decrypt.indexOf(pass)+1) + "/" + to_decrypt.len + ":")
+        password = crypto.decipher(pass[pass.len - 1])
+        saved_passwords.push(pass[pass.len - 1])
+        saved_passwords.push(password)
+    end if
+
+    output = output + "Password: " + password
+	outputs.push(output)
+    
+end for
+
+if outputs.len == 0 then exit()
+print("\nDecrypted passwords:\n")
+frame()
+for output in outputs
+    print(output)
+    frame()
+end for
+print()
