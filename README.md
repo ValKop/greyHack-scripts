@@ -21,3 +21,5 @@ A script for decrypting passwords from the terminal. Saves all obtained matches 
 Just type `shelldecipher` into the terminal and press *Enter*. Then enter ONE password using the format **<login>:<encrypted password>** or just **<encrypted password>**, then press *Enter*. Then you can enter another password using the same algorithm, press *Enter* and so on until you have entered all passwords. When you run out of passwords to decrypt, just type **0** (the number zero, not the letter O)
 
 If the script does not find such a password in the *.saved_decryptions* file, it will decrypt the password on its own and write it into the file. After decrypting all the passwords, the script displays them in a convenient format in the terminal
+
+This script uses the game's decryption capabilities, which the game developers intentionally slowed down. But in my in-game store you can buy a script with a self-written decryption algorithm that will instantly decrypt what you need ;)
