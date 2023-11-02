@@ -24,6 +24,7 @@ Automatic wifi hacking utility. Just run it and follow the instructions
 
 P.S. Do not interrupt the collection of ack. The program will automatically finish collecting
 
+---
 ### shelldecipher
 ![image](https://github.com/ValKop/greyHack-scripts/assets/60344304/0d8a0b36-943b-4dfb-8083-1d01572ace97)
 
@@ -34,7 +35,7 @@ Just type `shelldecipher` into the terminal and press *Enter*. Then enter ONE pa
 
 If the script does not find such a password in the *.saved_decryptions* file, it will decrypt the password on its own and write it into the file. After decrypting all the passwords, the script displays them in a convenient format in the terminal
 
-
+---
 ### compile_in_bin
 ![image](https://github.com/ValKop/greyHack-scripts/assets/60344304/cd8c59fa-7b31-4196-857f-12b0f23c473a)
 
