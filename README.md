@@ -10,9 +10,9 @@ You can copy each script individually, go into the in-game code editor, paste th
 
 I took care to make it more convenient. You don't need to compile each script individually. You will only need to copy the code of the programs you need and put it in the in-game code editor, and then save the code of each program in a separate folder (for example, src).
 
-Manually you will need to compile only one script - "compile_in_bin". To do this, open the terminal, go to the directory with the code, write in the terminal: build compile_in_bin.src /bin
+Manually you will need to compile only one script - "compile_in_bin". To do this, open the terminal, go to the directory with the code, write in the terminal: `build compile_in_bin.src /bin`
 
-Then just write compile_in_bin to the terminal and the script will automatically compile all the other scripts to the desired folder
+Then just write `compile_in_bin` in the terminal and the script will automatically compile all the other scripts to the desired folder
 
 # Description/small instruction of all scripts
 
