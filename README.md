@@ -14,7 +14,12 @@ Compile this script in /bin/, then use the terminal to go to the directory where
 
 # Description of all scripts/small instruction
 
-## shelldecipher
+### wifite
+Automatic wifi hacking utility. Just run it and follow the instructions
+
+P.S. Do not interrupt the collection of ack. The program will automatically finish collecting
+
+### shelldecipher
 
 A script for decrypting passwords from the terminal. Saves all obtained matches **encrypted_password:decrypted password** into */home/[username]/.saved_decryptions* file. 
 
