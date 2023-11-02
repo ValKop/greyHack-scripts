@@ -36,6 +36,7 @@ If the script does not find such a password in the *.saved_decryptions* file, it
 
 
 ### compile_in_bin
+![image](https://github.com/ValKop/greyHack-scripts/assets/60344304/cd8c59fa-7b31-4196-857f-12b0f23c473a)
 
 
 Compiles all .src files from the directory where you are located
