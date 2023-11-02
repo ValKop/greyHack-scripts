@@ -20,6 +20,9 @@ Then just write `compile_in_bin` in the terminal and the script will automatical
 Compiles all .src files from the directory where you are located
 
 ### wifite
+![image](https://github.com/ValKop/greyHack-scripts/assets/60344304/19ab160f-1e93-428c-a166-f9618987dcbf)
+
+
 Automatic wifi hacking utility. Just run it and follow the instructions
 
 P.S. Do not interrupt the collection of ack. The program will automatically finish collecting
