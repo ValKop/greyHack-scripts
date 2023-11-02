@@ -85,14 +85,14 @@ for pass in to_decrypt
     password = ""
     saved_encs.indexOf(enc_password)
     print("Password " + (to_decrypt.indexOf(pass)+1) + "/" + to_decrypt.len + ":")
+	wait(0.5)
     if saved_encs.indexOf(enc_password) != null then 
         password = saved_passwords[enc_password]
         print("The decryption of the password '" + enc_password + "' was taken from a file .saved_decryption")
     else
         password = crypto.decipher(enc_password)
         saved_passwords[enc_password] = password
-        print(saved_passwords)
-        print("Decryption of the password '" + enc_password + "' , will be written to .saved_decryptions after the program is executed")
+        //print("Decryption of the password '" + enc_password + "' , will be written to .saved_decryptions after the program is executed")
     end if
 
     output = output + "Password: " + password
