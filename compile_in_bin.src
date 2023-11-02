@@ -10,7 +10,7 @@ shell = get_shell
 computer = shell.host_computer
 
 workdir = computer.File(current_path)
-iprint(current_path + "is current path")
+iprint(current_path + " is current path")
 iprint("Start compile")
 print()
 files = workdir.get_files
