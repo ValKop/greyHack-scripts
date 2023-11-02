@@ -1,0 +1,33 @@
+iprint = function(text_to_print)
+	print("\n[INFO] " + text_to_print + "...")
+end function
+
+rprint = function(text_to_print)
+	print("[RESULT] " + text_to_print)
+end function
+
+shell = get_shell
+computer = shell.host_computer
+
+workdir = computer.File(current_path)
+iprint(current_path + "is current path")
+iprint("Start compile")
+print()
+files = workdir.get_files
+
+print("------")
+for file in files
+	if len(file.name.split("\.")) == 2 and file.name.split("\.")[1] == "src" then
+		print(file.name + " - " + "trying to compile...")
+		output = shell.build(workdir.path + "/" + file.name, "/bin")
+		if output.len == 0 then 
+			rprint("Success!") 
+		else 
+			rprint("Error: " + output)
+		end if
+	else	
+		print(file.name + " - " + "not src. Skip")
+	end if
+print("------")
+end for
+print()
