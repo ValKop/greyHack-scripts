@@ -6,7 +6,7 @@ The scripts presented here will be useful if you don't know how to program or if
 
 ### How to install scripts
 
-You can copy each script individually, go into the in-game code editor, paste the copied code, and compile each into /bin,  __BUT...__ 
+Soon I will create an in-game repository with these programs and post the ip address here. Then you will only need to do `apt-get address [ip]` and download any of these programs `apt-get install` (for example, `apt-get install wifite`). But for now...
 
 I took care to make it more convenient. You don't need to compile each script individually. You will only need to copy the code of the programs you need and put it in the in-game code editor, and then save the code of each program in a separate folder (for example, src).
 
