@@ -1,0 +1,94 @@
+crypto = include_lib("/lib/crypto.so")
+if not crypto then crypto = include_lib(current_path + "/crypto.so")
+if not crypto then exit("Missing crypto library")
+
+inp_choice = function(choices, what_choice, what_this)
+	choices_count = len(choices)
+
+	to_print = "Num" + " " + what_this + "\n"
+	for choice_index in range(1, choices_count)
+		to_print = to_print + choice_index + " " + choices[choice_index - 1] + "\n"
+	end for
+	print(format_columns(to_print))
+	
+	choice = 0
+	while choice < 1 or choice > choices_count
+		choice = user_input("Enter " + what_choice + " number from 1 to " + choices_count + ": ").val
+	end while
+	return choice
+end function
+
+inp_yn = function(what_choice, default=true)
+	y = "y"
+	n = "n"
+	if default then y = "Y"
+	if not default then n = "N"
+	choice = null
+	while true
+		choice = user_input(what_choice + "(" + [y,n].join("/") + "):")
+		choice = choice.lower()
+		if choice == "y" or choice == "n" or choice == "" then break
+	end while
+	
+	if choice == "" then return default
+	if choice.lower() == "y" then return true else return false
+end function
+
+iprint = function(text_to_print)
+	print("\n[INFO] " + text_to_print + "...")
+end function
+
+rprint = function(text_to_print)
+	print("[RESULT] " + text_to_print)
+end function
+
+print("\nWelcome to...\n")
+print(" __     __     __     ______   __     ______   ______")    
+print("/\ \  _ \ \   /\ \   /\  ___\ /\ \   /\__  _\ /\  ___\   ")
+print("\ \ \/ \ \ \  \ \ \  \ \  __\ \ \ \  \/_/\ \/ \ \  __\   ")
+print(" \ \__/ \ \_\  \ \_\  \ \_\    \ \_\    \ \_\  \ \_____\ ")
+print("  \/_/   \/_/   \/_/   \/_/     \/_/     \/_/   \/_____/ ")
+print("by CyberKatan")                                                         
+
+wait(2)
+
+shell = get_shell
+computer = shell.host_computer
+
+iprint("Searching net card")
+net_card = computer.network_devices.split(" ")[0]
+rprint("Net card name: " + net_card)
+
+iprint("Searching WiFi networks")
+networks = computer.wifi_networks(net_card)
+
+rprint("Networks: ")
+network = networks[inp_choice(networks, "network", "BSSID Power ESSID(Name)") - 1]
+bssid = network.split(" ")[0]
+essid = network.split(" ")[2]
+iprint("Target: " + essid)
+
+iprint("Enable mon mode for " + net_card)
+crypto.airmon("start", net_card)
+
+iprint("Collecting 7500 ACKs")
+crypto.aireplay(bssid, essid, 7500)
+
+iprint("Stopign mon mode for " + net_card)
+crypto.airmon("stop", net_card)
+
+iprint("Cracking the password...")
+cap = computer.File("file.cap")
+password = crypto.aircrack(cap.path)
+cap.delete()
+
+if not password then
+	rprint("Fail... Please, try again")
+	exit()
+end if
+
+rprint("Success!")
+print("\nWiFi: " + essid)
+print("Password: " + password + "\n")
+
+if inp_yn("Connect to this network automaticly ?") then computer.connect_wifi(net_card, bssid, essid, password)
