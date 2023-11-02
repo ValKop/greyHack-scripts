@@ -1,6 +1,6 @@
 # READ ME
 
-Hi, I'm please from GreyHack! This is my repository with basic scripts that any of you can take from here for free. The coolest and most advanced scripts you can buy in my store inside the game for in-game currency/cryptocurrency.
+Hi, I'm NeoShop owner from GreyHack! This is my repository with basic scripts that any of you can take from here for free. The coolest and most advanced scripts you can buy in my store inside the game for in-game currency/cryptocurrency.
 
 The scripts presented here will be useful if you don't know how to program or if you want to understand the game programming mechanics by parsing someone else's code. For such purposes, I later comment on the entire code to make it easier to understand it.
 
